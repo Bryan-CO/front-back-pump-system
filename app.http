@@ -1,0 +1,6 @@
+POST http://localhost:1234/checkPos
+Content-Type: application/json
+
+{
+    "password": "jadal123"
+}
