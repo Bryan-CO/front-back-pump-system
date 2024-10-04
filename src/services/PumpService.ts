@@ -6,7 +6,6 @@ const letterDisk = 'C'
 export class PumpService {
   static async checkPos ({ password }: { password: string }): Promise<TokenPos> {
     const serialDisk = (await PumpService.getSerialDisk()).split('-').join('')
-    console.log(serialDisk)
     const nroPos = await PumpRepository.checkPos(serialDisk, password)
     return nroPos
   }

@@ -1,4 +1,4 @@
-import { FetchError } from '../errors/FetchError'
+import { CustomError } from '../errors/FetchError'
 
 export interface DataResponse <T> {
   success: boolean
@@ -8,7 +8,7 @@ export interface DataResponse <T> {
 }
 
 export interface TokenPos {
-  accesToken: string
+  accessToken: string
   nroPos: string
 }
 
@@ -20,25 +20,26 @@ interface RequestPos {
 // eslint-disable-next-line
 export class PumpRepository {
   static async checkPos (serialDisk: string, password: string): Promise <TokenPos> {
-    const reqData: RequestPos = {
-      serialDisk,
-      password
-    }
-    const res = await fetch('http://192.168.18.19:10245/v1/pump/getCheckPos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(reqData)
-    })
-    const data: DataResponse<TokenPos> = await res.json()
-    if (!data.success) {
-      throw new FetchError(res.status, data.error)
-    }
-    return data.data
-    // return {
-    //   accesToken: 'e2348j43h40934dbd834',
-    //   nroPos: 'POS1'
+    // const reqData: RequestPos = {
+    //   serialDisk,
+    //   password
     // }
+    // const res = await fetch('http://192.168.18.19:10245/v1/pump/getCheckPos', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(reqData)
+    // })
+    // const data: DataResponse<TokenPos> = await res.json()
+    // if (!data.success) {
+    //   throw new CustomError(res.status, data.error)
+    // }
+    // return data.data
+    if (password !== 'ola') throw new CustomError(400, 'Credenciales incorrectas!')
+    return {
+      accessToken: 'e2348j43h40934dbd834',
+      nroPos: 'POS1'
+    }
   }
 }
