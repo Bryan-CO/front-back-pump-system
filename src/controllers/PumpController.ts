@@ -12,8 +12,10 @@ export class PumpController {
       // eslint-disable-next-line
       if (!password) throw new CustomError(400, 'El campo password es obligatorio!')
       const nroPos = await PumpService.checkPos({ password })
-
-      res.cookie('token', nroPos.accessToken)
+      res.cookie('authData', JSON.stringify(nroPos), {
+        secure: true,
+        sameSite: 'none'
+      })
       ResponseModel.success({ res, data: nroPos, message: 'Disco y contraseña validado correctamente!' })
     } catch (error) {
       console.log(error)
@@ -24,20 +26,4 @@ export class PumpController {
       }
     }
   }
-
-  static getPump (req: Request, res: Response): void {
-    const { authorization } = req.headers
-
-    // eslint-disable-next-line
-    if (!authorization?.startsWith('Bearer ')) return ResponseModel.error({ res, error: 'TOKEN NO VALIDO', statusCode: 401 })
-
-    const token = authorization.split(' ')[1]
-    if (!validateToken(token)) return ResponseModel.error({ res, error: 'NO AUTORIZADO', statusCode: 401 })
-
-    return ResponseModel.success({ res, data: [1, 3, 5, 7], statusCode: 200 })
-  }
-}
-
-function validateToken (token: string): boolean {
-  return token === 'soyuntoken'
 }
