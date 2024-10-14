@@ -6,9 +6,7 @@ const app = express()
 const PORT = 64150
 
 // TODO: Colocar array de origins como en el curso de NodeJS
-app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:4173']
-}))
+app.use(cors())
 app.use(express.json())
 
 app.get('/checkPos', PumpController.checkPos)
