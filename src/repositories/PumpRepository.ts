@@ -14,17 +14,15 @@ export interface TokenPos {
 
 interface RequestPos {
   serialDisk: string
-  password: string
 }
 
 // eslint-disable-next-line
 export class PumpRepository {
-  static async checkPos (serialDisk: string, password: string): Promise <TokenPos> {
+  static async checkPos (serialDisk: string): Promise <TokenPos> {
     const reqData: RequestPos = {
-      serialDisk,
-      password
+      serialDisk
     }
-    const res = await fetch('http://192.168.18.19:10245/v1/pump/getCheckPos', {
+    const res = await fetch('http://localhost:10245/v1/pump/getCheckPos', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -37,10 +35,5 @@ export class PumpRepository {
       throw new CustomError(res.status, data.error)
     }
     return data.data
-    // if (password !== 'ola') throw new CustomError(400, 'Credenciales incorrectas!')
-    // return {
-    //   accessToken: 'e2348j43h40934dbd834',
-    //   nroPos: 'POS1'
-    // }
   }
 }
