@@ -22,7 +22,7 @@ export class PumpRepository {
     const reqData: RequestPos = {
       serialDisk
     }
-    const res = await fetch('http://192.168.18.19:10245/v1/pump/getCheckPos', {
+    const res = await fetch(`${process.env.API_URL ?? 'http://localhost:10245'}/v1/pump/getCheckPos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

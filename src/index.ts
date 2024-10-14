@@ -1,7 +1,8 @@
 import express from 'express'
 import { PumpController } from './controllers/PumpController'
 import cors from 'cors'
-
+import dotenv from 'dotenv'
+dotenv.config()
 const app = express()
 const PORT = 64150
 
